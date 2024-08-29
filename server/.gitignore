@@ -2,9 +2,7 @@
 /dist
 /node_modules
 /build
-/prisma/migrations
-/http
-
+pnpm-lock.yaml
 # Logs
 logs
 *.log
