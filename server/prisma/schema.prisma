@@ -12,3 +12,103 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+enum Role {
+  CLIENT
+  EMPLOYEE
+  ADMIN
+}
+
+enum Status {
+  PENDING
+  PREPARING
+  READY
+  SERVED
+  COMPLETED
+  CANCELLED
+}
+
+enum Payment {
+  CREDIT
+  DEBIT
+  CASH
+}
+
+model Users {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  password String
+  email    String
+  phone    String
+  Rol      Role    @default(CLIENT)
+  Active   Boolean @default(true)
+
+  orders       Order[] @relation("ClientOrders")
+  servedOrders Order[] @relation("WaiterOrders")
+}
+
+model Category {
+  id     String   @id @default(auto()) @map("_id") @db.ObjectId
+  name   String
+  Dishes Dishes[]
+}
+
+model Order {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  clientID    String   @db.ObjectId
+  waiterID    String   @db.ObjectId
+  date        DateTime @default(now()) @db.Date
+  hour        String
+  totalAmount Float
+  Status      Status
+
+  client       Users          @relation(name: "ClientOrders", fields: [clientID], references: [id])
+  waiter       Users          @relation(name: "WaiterOrders", fields: [waiterID], references: [id])
+  OrderDetail  OrderDetail[]
+  OrderHistory OrderHistory[]
+  Purcharses   Purcharses[]
+}
+
+model Dishes {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  price       Float
+  photo       String
+  categoryID  String @db.ObjectId
+
+  Category    Category      @relation(fields: [categoryID], references: [id])
+  OrderDetail OrderDetail[]
+}
+
+model OrderDetail {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  orderID  String @db.ObjectId
+  disheID  String @db.ObjectId
+  quantity Int
+  subTotal Float
+
+  Order Order  @relation(fields: [orderID], references: [id])
+  Dishe Dishes @relation(fields: [disheID], references: [id])
+}
+
+model OrderHistory {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  orderID    String   @db.ObjectId
+  status     Status
+  changeHour String
+  date       DateTime @default(now()) @db.Date
+
+  Order Order @relation(fields: [orderID], references: [id])
+}
+
+model Purcharses {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  orderID String   @db.ObjectId
+  date    DateTime @default(now()) @db.Date
+  hour    String
+  mount   Float
+  payment Payment
+
+  Order Order @relation(fields: [orderID], references: [id])
+}
