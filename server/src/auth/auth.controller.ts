@@ -1,34 +1,65 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { Controller, Post, Body, Res, Patch } from '@nestjs/common'
+import { AuthService } from './auth.service'
+import { CreateAuthDto } from './dto/create-auth.dto'
+import { ApiOperation, ApiTags } from '@nestjs/swagger'
+import { LoginAuthDto } from './dto/login-auth.dto'
+import { Response } from 'express'
+import { Auth, GetUser } from './decorator'
+import { UpdateRoleAuthDto } from './dto/role-auth.dto'
+import { UpdateAuthDto } from './dto/update-auth.dto'
+import { User } from './interfaces'
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @ApiOperation({
+    description: 'This endpoint is for create new users',
+  })
   @Post()
-  create(@Body() createAuthDto: CreateAuthDto) {
-    return this.authService.create(createAuthDto);
+  async create(@Body() createAuthDto: CreateAuthDto) {
+    return await this.authService.create(createAuthDto)
   }
 
-  @Get()
-  findAll() {
-    return this.authService.findAll();
+  @ApiOperation({
+    description: 'This endpoint is for login users',
+  })
+  @Post('login')
+  async login(@Res() res: Response, @Body() loginAuthDto: LoginAuthDto) {
+    await this.authService
+      .login(loginAuthDto)
+      .then((data) => {
+        const { user, token } = data
+        return res
+          .cookie('acces_token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: 1000 * 60 * 60,
+          })
+          .send(user)
+      })
+      .catch((e) => {
+        throw e
+      })
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
+  @ApiOperation({
+    description: 'This enpoint is for update user Role',
+  })
+  @Patch('update-role')
+  @Auth('ADMIN')
+  async updateRole(@Body() updateRoleAuthDto: UpdateRoleAuthDto) {
+    return await this.authService.updateRole(updateRoleAuthDto)
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-    return this.authService.update(+id, updateAuthDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
+  @ApiOperation({
+    description: 'This enpoint is for update user',
+  })
+  @Patch()
+  @Auth()
+  async update(@Body() updateAuthDto: UpdateAuthDto, @GetUser() user: User) {
+    return await this.authService.update(updateAuthDto, user)
   }
 }
