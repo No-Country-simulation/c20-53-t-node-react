@@ -32,7 +32,7 @@ export class AuthController {
       .then((data) => {
         const { user, token } = data
         return res
-          .cookie('acces_token', token, {
+          .cookie('access_token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict',
