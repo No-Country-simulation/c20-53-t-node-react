@@ -25,7 +25,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate({ id }: IJwtPayload): Promise<User> {
-    const user = await this.prismaService.user.findUnique({ where: { id } })
+    const user = await this.prismaService.users.findUnique({ where: { id } })
 
     if (!user) throw new UnauthorizedException('Token not valid')
     // if (!user.is_active) throw new UnauthorizedException('User is inactive')
