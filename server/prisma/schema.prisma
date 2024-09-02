@@ -38,9 +38,9 @@ model Users {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   password String
-  email    String
+  email    String  @unique
   phone    String
-  Rol      Role    @default(CLIENT)
+  Role     Role    @default(CLIENT)
   Active   Boolean @default(true)
 
   orders       Order[] @relation("ClientOrders")
