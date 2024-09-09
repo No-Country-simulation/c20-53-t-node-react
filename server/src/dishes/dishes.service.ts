@@ -114,6 +114,10 @@ export class DishesService {
       .catch((e) => handleErrorExceptions(e))
   }
 
+  async findAllCategory() {
+    return this.prisma.category.findMany({}).catch((e) => handleErrorExceptions(e))
+  }
+
   async removeCategory(id: string) {
     return this.prisma.category.update({
       where: {
