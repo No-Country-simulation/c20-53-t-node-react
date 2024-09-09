@@ -15,16 +15,23 @@ export class DishesController {
   })
   @Post()
   @Auth('ADMIN', 'EMPLOYEE')
-  create(@Body() createDishDto: CreateDishDto) {
-    return this.dishesService.create(createDishDto)
+  async create(@Body() createDishDto: CreateDishDto) {
+    return await this.dishesService.create(createDishDto)
   }
+
+  @ApiOperation({
+    description:'This endpoint is for create a new category'
+  })
+  @Post('/category')
+  @Auth('ADMIN','EMPLOYEE')
+  async createCategory()
 
   @ApiOperation({
     description: 'This endpoint is for find all dishes',
   })
   @Get()
-  findAll() {
-    return this.dishesService.findAll()
+  async findAll() {
+    return await this.dishesService.findAll()
   }
 
   @ApiOperation({

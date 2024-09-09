@@ -48,9 +48,10 @@ model Users {
 }
 
 model Category {
-  id     String   @id @default(auto()) @map("_id") @db.ObjectId
-  name   String
-  Dishes Dishes[]
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  deleted Boolean  @default(false)
+  Dishes  Dishes[]
 }
 
 model Order {
@@ -70,12 +71,14 @@ model Order {
 }
 
 model Dishes {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
   price       Float
   photo       String
-  categoryID  String @db.ObjectId
+  categoryID  String  @db.ObjectId
+  active      Boolean @default(true)
+  deleted     Boolean @default(false)
 
   Category    Category      @relation(fields: [categoryID], references: [id])
   OrderDetail OrderDetail[]

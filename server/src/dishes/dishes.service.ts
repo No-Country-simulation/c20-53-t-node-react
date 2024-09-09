@@ -20,7 +20,13 @@ export class DishesService {
   }
 
   async findAll() {
-    return this.prisma.dishes.findMany({}).catch((e) => handleErrorExceptions(e))
+    return this.prisma.dishes
+      .findMany({
+        where: {
+          deleted: false,
+        },
+      })
+      .catch((e) => handleErrorExceptions(e))
   }
 
   async findForName(name: string) {
@@ -28,6 +34,7 @@ export class DishesService {
       .findFirst({
         where: {
           name,
+          deleted: true,
         },
       })
       .catch((e) => handleErrorExceptions(e))
@@ -41,6 +48,7 @@ export class DishesService {
             contains: dishe,
             mode: 'insensitive',
           },
+          deleted: false,
         },
       })
       .catch((e) => handleErrorExceptions(e))
@@ -75,11 +83,45 @@ export class DishesService {
     try {
       const exist = await this.findForID(id)
       if (!exist) throw new NotFoundException('Dishe not found')
-      return this.prisma.dishes.delete({
+      return this.prisma.dishes.update({
         where: { id },
+        data: {
+          deleted: true,
+        },
       })
     } catch (e) {
       handleErrorExceptions(e)
     }
+  }
+
+  async newCategory(name: string) {
+    try {
+      const existName = this.findCategoryByName(name)
+      if (existName) throw new ConflictException('Category already exists')
+      return this.prisma.category.create({
+        data: { name },
+      })
+    } catch (error) {
+      handleErrorExceptions(error)
+    }
+  }
+
+  async findCategoryByName(name: string) {
+    return this.prisma.category
+      .findFirst({
+        where: { name, deleted: false },
+      })
+      .catch((e) => handleErrorExceptions(e))
+  }
+
+  async removeCategory(id: string) {
+    return this.prisma.category.update({
+      where: {
+        id,
+      },
+      data: {
+        deleted: true,
+      },
+    })
   }
 }
