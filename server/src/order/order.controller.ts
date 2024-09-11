@@ -19,7 +19,7 @@ export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @ApiProperty({
-    description: "New order",
+    description: "This endpoint is for create new order",
   })
   @Post()
   //@Auth("ADMIN")
@@ -29,17 +29,24 @@ export class OrderController {
   ) {
     return await this.orderService.createOrder(createOrderDto, user);
   }
-
+  @ApiProperty({
+    description: "This endpoint is for find all orders",
+  })
   @Get()
   async findAll() {
     return await this.orderService.findAll();
   }
-
+  @ApiProperty({
+    description: "This endpoint is for find one order by id",
+  })
   @Get(":id")
   async findOne(@Param("id") id: string) {
     return await this.orderService.findOne(id);
   }
 
+  @ApiProperty({
+    description: "This endpoint is for update one order by id",
+  })
   @Patch(":id")
   async update(
     @Param("id") id: string,
@@ -48,6 +55,9 @@ export class OrderController {
     return await this.orderService.update(updateOrderDto);
   }
 
+  @ApiProperty({
+    description: "This endpoint is for delete one order by id",
+  })
   @Delete(":id")
   async remove(@Param("id") id: string) {
     return await this.orderService.remove(id);
