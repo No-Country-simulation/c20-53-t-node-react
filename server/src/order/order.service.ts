@@ -45,6 +45,22 @@ export class OrderService {
   }
 
   async remove(id: string) {
-    return await `This action removes a #${id} order`;
+    try {
+      const order = await this.findOne(id);
+      if (!order) new NotFoundException("Order not found");
+      if (order.Status !== "PENDING") {
+        new NotFoundException(
+          "Order can`t be cancelled, please call the waiter"
+        );
+      }
+      return this.prisma.order.update({
+        where: { id: String(id) },
+        data: {
+          Status: "CANCELLED",
+        },
+      });
+    } catch (error) {
+      handleErrorExceptions(error);
+    }
   }
 }
