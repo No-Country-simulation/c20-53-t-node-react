@@ -1,0 +1,24 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff; /* Color del diseño de Figma */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Efecto sombra */
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333; /* Color del texto */
+  font-weight: bold;
+}
+
+.nav-links a:hover {
+  color: #007bff; /* Efecto hover */
+}
