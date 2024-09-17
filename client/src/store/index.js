@@ -1,10 +1,13 @@
+// store/index.js
 import { configureStore } from "@reduxjs/toolkit";
 import menuReducer from "./menuSlice";
 import orderReducer from "./orderSlice";
+import authReducer from "./authSlice";
 
 export const store = configureStore({
   reducer: {
     menu: menuReducer,
-    order: orderReducer,
+    orders: orderReducer,
+    auth: authReducer,
   },
 });

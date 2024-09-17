@@ -1,24 +1,38 @@
-import { createSlice } from "@reduxjs/toolkit";
+// store/orderSlice.js
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+// Acción para enviar un pedido
+export const createOrder = createAsyncThunk(
+  "orders/createOrder",
+  async (order) => {
+    const response = await axios.post("/api/orders", order);
+    return response.data;
+  }
+);
 
 const orderSlice = createSlice({
-  name: "order",
+  name: "orders",
   initialState: {
-    items: [],
-    total: 0,
+    orders: [],
+    status: "idle",
+    error: null,
   },
-  reducers: {
-    addToOrder(state, action) {
-      const item = action.payload;
-      state.items.push(item);
-      state.total += item.price;
-    },
-    clearOrder(state) {
-      state.items = [];
-      state.total = 0;
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(createOrder.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(createOrder.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.orders.push(action.payload);
+      })
+      .addCase(createOrder.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
   },
 });
-
-export const { addToOrder, clearOrder } = orderSlice.actions;
 
 export default orderSlice.reducer;

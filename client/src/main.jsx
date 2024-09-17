@@ -1,20 +1,42 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Provider } from "react-redux";
 import { store } from "./store";
-import App from "./components/App";
-import AdminPage from "./components/AdminPage";
-import Login from "./components/Login";
+import OwnerPage from "./pages/OwnerPage";
+import WaiterPage from "./pages/WaiterPage";
+import CustomerPage from "./pages/CustomerPage";
+import PrivateRoute from "./components/PrivateRoute";
+import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
+import "./styles/CustomerPage.module.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
         <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/admin" element={<AdminPage />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/owner"
+            element={
+              <PrivateRoute role="owner">
+                <OwnerPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/waiter"
+            element={
+              <PrivateRoute role="waiter">
+                <WaiterPage />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/customer" element={<CustomerPage />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/register" element={<RegisterForm />} />
         </Routes>
       </Router>
     </Provider>
