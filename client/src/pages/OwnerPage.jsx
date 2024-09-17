@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../store/menuSlice";
 import axios from "axios";
+import { deleteItem } from "../store/menuSlice";
 
 function OwnerPage() {
   const dispatch = useDispatch();

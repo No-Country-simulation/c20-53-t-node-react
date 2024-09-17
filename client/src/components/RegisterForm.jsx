@@ -1,43 +1,64 @@
-// components/RegisterForm.jsx
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { registerUser } from "../store/authSlice";
+import React, { useState } from "react";
+import { register } from "../services/authService";
 
-function RegisterForm() {
+const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("customer"); // Role puede ser customer, waiter o owner
-  const dispatch = useDispatch();
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    dispatch(registerUser({ email, password, role }));
+    try {
+      await register(email, password, name, phone);
+      window.location.href = "/login";
+    } catch (err) {
+      setError(`Registration failed ${err}. Please check your details.`);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-      />
-      <select value={role} onChange={(e) => setRole(e.target.value)}>
-        <option value="customer">Comensal</option>
-        <option value="waiter">Camarero</option>
-        <option value="owner">Dueño</option>
-      </select>
-      <button type="submit">Registrarse</button>
-    </form>
+    <div>
+      <h2>Register</h2>
+      <form onSubmit={handleRegister}>
+        <div>
+          <label>Name:</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Phone:</label>
+          <input
+            type="text"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <button type="submit">Register</button>
+      </form>
+    </div>
   );
-}
+};
 
-export default RegisterForm;
+export default RegisterPage;

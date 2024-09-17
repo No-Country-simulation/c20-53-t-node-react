@@ -24,6 +24,8 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null, // Aquí guardamos los datos del usuario (incluyendo el rol)
+    name: null, // Agregar 'name'
+    phone: null, // Agregar 'phone'
     token: null,
     status: "idle",
     error: null,
