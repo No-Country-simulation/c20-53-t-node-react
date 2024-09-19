@@ -47,6 +47,7 @@ export const getRandomMenuItems = async () => {
   }
   return response.json();
 };
+console.log(getRandomMenuItems());
 
 // Función para editar un plato
 export const updateMenuItem = async (id, item) => {

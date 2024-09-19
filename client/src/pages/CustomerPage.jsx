@@ -112,6 +112,12 @@ function CustomerPage() {
       <div className={styles.menuList}>
         {filteredMenu.map((item) => (
           <div key={item.id} className={styles.menuItem}>
+            <img
+              className={styles.menuItemImage}
+              src={item.photo}
+              alt={item.name}
+            />
+
             <h3>{item.name}</h3>
             <p>Precio: ${item.price}</p>
             <button onClick={() => addToCart(item)}>Añadir al Pedido</button>
