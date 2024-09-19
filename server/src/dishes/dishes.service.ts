@@ -138,4 +138,14 @@ export class DishesService {
       },
     });
   }
+  async getRandomDishes() {
+    try {
+      const dishes = await this.prisma.dishes.findMany({});
+      const shuffled = dishes.sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, 4);
+      console.log(dishes);
+    } catch (e) {
+      handleErrorExceptions(e);
+    }
+  }
 }

@@ -12,6 +12,7 @@ import { CreateDishDto } from "./dto/create-dish.dto";
 import { UpdateDishDto } from "./dto/update-dish.dto";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 //import { Auth } from "src/auth/decorator";
+//import { Dish } from "@prisma/client";
 
 @ApiTags("Dishes")
 @Controller("dishes")
@@ -84,5 +85,15 @@ export class DishesController {
   // @Auth('ADMIN')
   async removeCategory(@Param("id") id: string) {
     return this.dishesService.removeCategory(id);
+  }
+  @ApiOperation({
+    description: "This endpoint returns 4 random dishes",
+  })
+  @ApiOperation({
+    description: "This endpoint returns 4 random dishes",
+  })
+  @Get("/random")
+  async getRandomDishes() {
+    return this.dishesService.getRandomDishes();
   }
 }
