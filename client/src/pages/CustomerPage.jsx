@@ -1,19 +1,24 @@
 import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
-import axios from "axios";
+//import axios from "axios";
 import styles from "../styles/CustomerPage.module.css";
+import { getMenuItems } from "../services/menuService";
 
 function CustomerPage() {
   const [menuItems, setMenuItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    // Obtener el menú del backend
-    axios
-      .get("/api/menu")
-      .then((response) => setMenuItems(response.data))
-      .catch((error) => console.error(error));
+    const fetchData = async () => {
+      try {
+        const data = await getMenuItems();
+        setMenuItems(data);
+      } catch (error) {
+        console.error("Error fetching menu items:", error);
+      }
+    };
+    fetchData();
   }, []);
 
   const filteredMenu = menuItems.filter((item) =>

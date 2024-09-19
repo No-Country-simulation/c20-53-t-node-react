@@ -3,11 +3,16 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Acción para iniciar sesión
+// Definir las acciones asincrónicas
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
-  async (credentials) => {
-    const response = await axios.post("/api/login", credentials);
-    return response.data; // Aquí espera que el backend devuelva un objeto con el usuario y el token
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const response = await axios.post("/api/v1/auth/login", credentials);
+      return response.data; // Devuelve los datos si la solicitud es exitosa
+    } catch (error) {
+      return rejectWithValue(error.response.data); // En caso de error, devuelve el valor rechazado
+    }
   }
 );
 
@@ -15,7 +20,7 @@ export const loginUser = createAsyncThunk(
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userInfo) => {
-    const response = await axios.post("/api/register", userInfo);
+    const response = await axios.post("/api/v1/auth", userInfo);
     return response.data; // Aquí también espera que el backend devuelva el usuario y el token
   }
 );
@@ -24,6 +29,8 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null, // Aquí guardamos los datos del usuario (incluyendo el rol)
+    name: null, // Agregar 'name'
+    phone: null, // Agregar 'phone'
     token: null,
     status: "idle",
     error: null,
