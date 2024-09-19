@@ -10,7 +10,7 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       await login(email, password);
-      window.location.href = "/dashboard"; // Redirige después de login
+      window.location.href = "/owner"; // Redirige después de login
     } catch (err) {
       setError(`Login failed: ${err.message}. Please check your credentials.`);
     }

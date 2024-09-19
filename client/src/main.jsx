@@ -6,7 +6,7 @@ import { store } from "./store";
 import OwnerPage from "./pages/OwnerPage";
 import WaiterPage from "./pages/WaiterPage";
 import CustomerPage from "./pages/CustomerPage";
-import PrivateRoute from "./components/PrivateRoute";
+//import PrivateRoute from "./components/PrivateRoute";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import "./styles/CustomerPage.module.css";
@@ -21,17 +21,17 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route
             path="/owner"
             element={
-              <PrivateRoute role="owner">
-                <OwnerPage />
-              </PrivateRoute>
+              // <PrivateRoute role="CLIENT">
+              <OwnerPage />
+              // </PrivateRoute>
             }
           />
           <Route
             path="/waiter"
             element={
-              <PrivateRoute role="waiter">
-                <WaiterPage />
-              </PrivateRoute>
+              //<PrivateRoute role="waiter">
+              <WaiterPage />
+              //</PrivateRoute>
             }
           />
           <Route path="/customer" element={<CustomerPage />} />
