@@ -36,6 +36,17 @@ export const deleteMenuItem = async (id) => {
     throw error;
   }
 };
+// menuService.js
+
+// menuService.js
+
+export const getRandomMenuItems = async () => {
+  const response = await fetch("http://localhost:3000/api/v1/dishes/random");
+  if (!response.ok) {
+    throw new Error("Failed to fetch random dishes");
+  }
+  return response.json();
+};
 
 // Función para editar un plato
 export const updateMenuItem = async (id, item) => {
