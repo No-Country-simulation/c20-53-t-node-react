@@ -30,7 +30,7 @@ export const addMenuItem = async (newItem) => {
 // Función para eliminar un plato
 export const deleteMenuItem = async (id) => {
   try {
-    await axios.api.delete(`http://localhost:3000/api/v1/dishes/${id}`);
+    await axios.delete(`http://localhost:3000/api/v1/dishes/${id}`);
   } catch (error) {
     console.error("Error deleting item:", error);
     throw error;

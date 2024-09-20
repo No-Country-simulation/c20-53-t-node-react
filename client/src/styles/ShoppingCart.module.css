@@ -34,3 +34,27 @@ button {
 button:hover {
   background-color: #e65c00;
 }
+/* ShoppingCart.module.css */
+.cartContainer {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cartHeader {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.cartItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.cartTotal {
+  font-weight: bold;
+  margin-top: 20px;
+}
