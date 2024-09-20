@@ -1,0 +1,59 @@
+.carouselItem {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 0;
+  background-color: #f8f9fa; /* Fondo suave para destacar los platos */
+  text-align: center;
+}
+
+.carouselItem h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.slick-slide {
+  padding: 10px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: #333; /* Color para las flechas de navegación */
+}
+
+.slick-dots li button:before {
+  color: #aaa; /* Color de los puntos de navegación */
+}
+
+.slick-dots li.slick-active button:before {
+  color: #333; /* Color del punto activo */
+}
+
+.carouselItem img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover; /* Las imágenes se ajustarán sin deformarse */
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.carouselItem img:hover {
+  transform: scale(1.05); /* Pequeño efecto de zoom al pasar el mouse */
+}
+
+.carouselItem h3 {
+  font-size: 1.5rem;
+  margin: 10px 0;
+  color: #ff6347;
+}
+
+.carouselItem p {
+  font-size: 1rem;
+  color: #777;
+}
+
+.carouselItem p.price {
+  font-weight: bold;
+  color: #333;
+  margin-top: 5px;
+}

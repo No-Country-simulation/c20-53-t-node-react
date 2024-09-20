@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "../styles/ShoppingCart.module.css";
 
-const ShoppingCart = ({ cartItems, editCartItem, removeFromCart }) => {
+const ShoppingCart = ({ cartItems, removeFromCart }) => {
   return (
     <div className={styles.cart}>
       <h2>Carrito de Compras</h2>
@@ -14,13 +14,6 @@ const ShoppingCart = ({ cartItems, editCartItem, removeFromCart }) => {
               <h4>{item.name}</h4>
               <p>Precio: ${item.price}</p>
               <button onClick={() => removeFromCart(index)}>Eliminar</button>
-              <button
-                onClick={() =>
-                  editCartItem(index, { ...item, price: item.price + 1 })
-                }
-              >
-                Editar
-              </button>
             </li>
           ))}
         </ul>

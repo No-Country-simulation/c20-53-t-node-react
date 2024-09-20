@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import { getMenuItems } from "../services/menuService";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import styles from "../styles/CustomerPage.module.css";
+import styles from "../styles/Carrousel.module.css";
 
 const CarouselComponent = () => {
   const [dishes, setDishes] = useState([]);
@@ -38,11 +38,15 @@ const CarouselComponent = () => {
       <Slider {...settings}>
         {dishes.length > 0 ? (
           dishes.map((dish) => (
-            <div key={dish.id}>
-              <img src={dish.photo} alt={dish.name} />
+            <div key={dish.id} className={styles.carouselItem}>
+              <img
+                src={dish.photo}
+                alt={dish.name}
+                className={styles.dishImage}
+              />
               <h3>{dish.name}</h3>
               <p>{dish.description}</p>
-              <p>${dish.price}</p>
+              <p className={styles.price}>${dish.price}</p>
             </div>
           ))
         ) : (
