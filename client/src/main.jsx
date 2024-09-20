@@ -34,7 +34,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               //</PrivateRoute>
             }
           />
-          <Route path="/customer" element={<CustomerPage />} />
+          <Route path="/" element={<CustomerPage />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
         </Routes>

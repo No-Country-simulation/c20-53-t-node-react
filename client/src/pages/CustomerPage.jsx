@@ -2,25 +2,26 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
 import ShoppingCart from "../components/ShoppingCart";
-import Slider from "react-slick";
+//import Slider from "react-slick";
 import styles from "../styles/CustomerPage.module.css";
-import { getMenuItems, getRandomMenuItems } from "../services/menuService";
+import { getMenuItems } from "../services/menuService";
+import CarouselComponent from "../components/CarouselComponent";
 
 // Configuración del carrusel
-const carouselSettings = {
+/*const carouselSettings = {
   dots: true,
   infinite: true,
   speed: 500,
   slidesToShow: 4,
   slidesToScroll: 1,
-};
+};*/
 
 function CustomerPage() {
   const [menuItems, setMenuItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [cartItems, setCartItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [randomMenuItems, setRandomMenuItems] = useState([]);
+  //const [randomMenuItems, setRandomMenuItems] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,8 +35,8 @@ function CustomerPage() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const fetchRandomItems = async () => {
+  //useEffect(() => {
+  /* const fetchRandomItems = async () => {
       try {
         const items = await getRandomMenuItems();
         setRandomMenuItems(items);
@@ -44,7 +45,7 @@ function CustomerPage() {
       }
     };
     fetchRandomItems();
-  }, []);
+  }, []);*/
 
   // Filtrado por nombre y categoría
   const filteredMenu = menuItems.filter(
@@ -75,6 +76,7 @@ function CustomerPage() {
   return (
     <div>
       <Navbar />
+      <CarouselComponent />
       <h2>Menú</h2>
 
       <div className={styles.filters}>
@@ -92,21 +94,6 @@ function CustomerPage() {
           <option value="Helados">Helados</option>
           <option value="Tortas">Tortas</option>
         </select>
-      </div>
-
-      {/* Carrusel de platos aleatorios */}
-      <div className={styles.carouselContainer}>
-        <h2>Platos Recomendados</h2>
-        <Slider {...carouselSettings} className={styles.carousel}>
-          {randomMenuItems.map((item) => (
-            <div key={item.id} className={styles.carouselItem}>
-              <img src={item.photo} alt={item.name} />
-              <h3>{item.name}</h3>
-              <p>Precio: ${item.price}</p>
-              <button onClick={() => addToCart(item)}>Añadir al Pedido</button>
-            </div>
-          ))}
-        </Slider>
       </div>
 
       <div className={styles.menuList}>

@@ -90,10 +90,10 @@ export class DishesController {
     description: "This endpoint returns 4 random dishes",
   })
   @ApiOperation({
-    description: "This endpoint returns 4 random dishes",
+    description: "This endpoint is for fetching 4 random dishes",
   })
   @Get("/random")
-  async getRandomDishes() {
-    return this.dishesService.getRandomDishes();
+  async findRandomDishes() {
+    return await this.dishesService.findRandomDishes();
   }
 }

@@ -1,9 +1,52 @@
-/* styles/Navbar.module.css */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background-color: #718b58;
-  color: white;
+  padding: 1rem 2rem;
+  background-color: #ff6347; /* Fondo oscuro */
+  color: #fff; /* Texto en blanco */
+}
+
+.navbar h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.logo {
+  width: 130px; /* Ajusta el tamaño del logo según sea necesario */
+  height: auto;
+}
+
+.navbar li {
+  margin-left: 1.5rem;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  background-color: #f15033; /* Color del botón */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar a:hover {
+  background-color: #706f6f; /* Color del hover (ejemplo: tomate) */
+  transform: scale(1.05); /* Efecto de agrandamiento */
+}
+
+.navbar a:active {
+  transform: scale(0.95); /* Efecto al hacer click */
+}
+
+.navbar a:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 99, 71, 0.5); /* Resaltar con un borde al hacer foco */
 }

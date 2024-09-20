@@ -1,5 +1,7 @@
 import { useState } from "react";
+import Navbar from "../components/Navbar";
 import { login } from "../services/authService";
+import styles from "../styles/LoginPage.module.css";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -18,27 +20,34 @@ const LoginPage = () => {
 
   return (
     <div>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit">Login</button>
-      </form>
+      <Navbar />
+      <div className={styles.container}>
+        <h2>Login</h2>
+        <form onSubmit={handleLogin} className={styles.form}>
+          <div className={styles.formGroup}>
+            <label>Email:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className={styles.input}
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label>Password:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className={styles.input}
+            />
+          </div>
+          {error && <p className={styles.error}>{error}</p>}
+          <button type="submit" className={styles.button}>
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

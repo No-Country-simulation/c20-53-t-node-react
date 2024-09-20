@@ -18,97 +18,30 @@
 }
 
 /* Carrusel de platos */
-.carouselContainer {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
-}
 
 .carouselItem {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 15px;
-  margin: 0 10px;
-  text-align: center;
+  width: 100%;
+  margin: 0 0px;
+
+  text-align: justify;
 }
 
 .carouselItem img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.carouselItem h3 {
-  font-size: 1.2rem;
-  margin-top: 10px;
-}
-
-.carouselButton {
-  background-color: #ff6347;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.carouselButton:hover {
-  background-color: #ff4500;
-}
-
-/* Sección del carrito de compras */
-.cartContainer {
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  padding: 20px;
+  width: 300px;
+  height: 250px;
+  object-fit: cover;
   margin-bottom: 20px;
+  border-radius: 15px;
 }
-
-.cartHeader {
-  font-size: 1.8rem;
-  margin-bottom: 15px;
-  color: #555;
-}
-
-.cartItem {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.cartItem:last-child {
-  border-bottom: none;
-}
-
-.cartItemName {
-  font-size: 1.1rem;
-}
-
-.cartItemPrice {
-  color: #28a745;
-  font-size: 1.1rem;
-}
-
-.cartButtons {
-  display: flex;
-  gap: 10px;
-}
-
-.cartButton {
-  background-color: #ff6347;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  width: 30%;
-  border-radius: 30px;
-  cursor: pointer;
-}
-
-.cartButton:hover {
-  background-color: #ff4500;
+.carousel {
+  .slick-slide {
+    padding: 10px;
+    box-sizing: border-box;
+  }
 }
 
 /* Búsqueda por categorías */
@@ -116,14 +49,6 @@
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
-}
-
-.searchInput {
-  width: 50%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  font-size: 1rem;
 }
 
 /* Responsive */
@@ -158,24 +83,20 @@
   border-radius: 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
+.menuItem button {
+  text-decoration: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  background-color: #ff6347; /* Color del botón */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.menuItem button:hover {
+  background-color: #555; /* Color del hover (ejemplo: tomate) */
+  transform: scale(1.05); /* Efecto de agrandamiento */
+}
 .menuItemImage {
   width: 100%;
   height: 200px;
-}
-
-.carousel {
-  .slick-slide {
-    padding: 10px;
-    box-sizing: border-box;
-  }
-}
-
-.carouselItem {
-  text-align: center;
-}
-
-.carouselItem img {
-  max-width: 100%;
-  height: auto;
+  border-radius: 30px;
 }
